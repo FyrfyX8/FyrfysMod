@@ -1,0 +1,152 @@
+Items: {
+	FyrfyX8Chestplate: {
+		DisplayName: FyrfyX8's Chestplate
+		Tooltip:
+			'''
+			'Great for impersonating a Pro Superstar Racers player.'
+			'Protects you from G-forces while being stuck in a rolling marble.'
+			'''
+	}
+
+	FyrfyX8Leggings: {
+		DisplayName: FyrfyX8's Leggings
+		Tooltip:
+			'''
+			'Great for impersonating a Pro Superstar Racers player.'
+			'Gives you the ability to do real glass skip... whatever that means.'
+			'''
+	}
+
+	FyrfyX8Head: {
+		DisplayName: FyrfyX8's Head
+		Tooltip:
+			'''
+			'Great for impersonating a Pro Superstar Racers player.'
+			'You suddenly want to race other people in a 3D platformer racer.'
+			'''
+	}
+
+	FyrfyX8Tail: {
+		DisplayName: FyrfyX8's Tail
+		Tooltip:
+			'''
+			'Great for impersonating a Pro Superstar Racers player.'
+			'Grants extra stability when doing Cowbonks.'
+			'''
+	}
+
+	FyrfyX8Wings: {
+		DisplayName: FyrfyX8's Wings
+		Tooltip:
+			'''
+			Allows flight and slow fall
+			'Great for impersonating a Pro Superstar Racers player.'
+			'You feel like you can skip a great distance using... a star and rings?'
+			'''
+	}
+
+	FyrfyX8Wings_Inactive: {
+		DisplayName: FyrfyX8's Wings (Inactive)
+		Tooltip:
+			'''
+			Can be activated with the right materials
+			'Great for impersonating a Pro Superstar Racers player.'
+			'You feel like you can skip a great distance using... a star and rings?'
+			'''
+	}
+
+	GravitraxMarble: {
+		Tooltip: ""
+		DisplayName: Gravitrax Marble
+	}
+
+	SilverDirtyMarble: {
+		Tooltip: ""
+		DisplayName: Silver Dirty Marble
+	}
+
+	RedDirtyMarble: {
+		Tooltip: ""
+		DisplayName: Red Dirty Marble
+	}
+
+	GreenDirtyMarble: {
+		Tooltip: ""
+		DisplayName: Green Dirty Marble
+	}
+
+	GoldDirtyMarble: {
+		Tooltip: ""
+		DisplayName: Gold Dirty Marble
+	}
+
+	BlueDirtyMarble: {
+		Tooltip: ""
+		DisplayName: Blue Dirty Marble
+	}
+
+	FeyaFlowerDress: {
+		Tooltip: "'Every time a child laughs, a fairy is born'"
+		DisplayName: Feya's Flower Dress
+	}
+
+	FeyaHeadwear: {
+		Tooltip: "'Every time a child laughs, a fairy is born'"
+		DisplayName: Feya's Headwear
+	}
+
+	FeyaFariyWings: {
+		Tooltip: "'Every time a child laughs, a fairy is born'"
+		DisplayName: Feya's Fariy Wings
+	}
+
+	FeyaFariyWings_Inactive: {
+		Tooltip:
+			'''
+			Can be activated with the right materials
+			'Wings!? that is clearly Dust'
+			'Every time a child laughs, a fairy is born'
+			'''
+		DisplayName: Feya's Fariy Wings (Inactive)
+	}
+
+	FeyaButterflyNectar: {
+		DisplayName: Feya's Butterfly Nectar
+		Tooltip:
+			'''
+			Equip to make Butterflies love you!
+			'Every time a child laughs, a fairy is born'
+			'''
+	}
+}
+
+Conditions: {
+	PlayerHasAnySpeedBoots: Mods.FyrfysMod.Conditions.PlayerHasAnySpeedBoots
+	piAmountOfStars: Mods.FyrfysMod.Conditions.piAmountOfStars
+}
+
+NPCs: {
+	Gravitraxer: {
+		TownNPCMood: {
+			Princess_LovesNPC: I like {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			HateNPC: I hate {NPCName}.
+			LikeNPC: I like {NPCName}.
+			LoveNPC: I love {NPCName}.
+			DislikeBiome: I dislike {BiomeName}.
+			LoveBiome: I love {BiomeName}.
+			HateCrowded: I hate how crowded I am.
+			DislikeCrowded: I dislike how crowded I am.
+			LoveSpace: I love having so much space.
+			FarFromHome: I am too far from home.
+			NoHome: I hate not having a home.
+			Content: I am content.
+		}
+
+		DisplayName: Gravitraxer
+		DeathMessage: Mods.FyrfysMod.NPCs.Gravitraxer.DeathMessage
+	}
+}
+
+Emotes.GravitraxerEmote.Command: Gravitraxeremote
+Projectiles.FeyaButterflyProjectile.DisplayName: Feya Butterfly Projectile

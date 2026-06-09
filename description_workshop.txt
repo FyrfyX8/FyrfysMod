@@ -1,0 +1,16 @@
+Heyo!
+This Mod adds random stuff i wanted to add, such as custom Vanity sets.
+
+Currently this adds:
+[list]
+[*]2 Vanity Sets:
+[list]
+[*]FyrfyX8's Vanity Set (can be bought from the Clothier, when you have some type of sprinting boots and exactly 314 Fallen Stars in your inventory)
+[*]Feya's Vanity Set (can be bought from the Dryad, after Skeletron has been defeated, you have a Golden Butterfly in your inventory and done 15 or more quest for the Angler)
+[/list]
+[/list]
+
+WIP content:
+[list]
+[*]Gravitraxer NPC wich will sell Gravitrax themed items and weapons.
+[/list]

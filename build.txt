@@ -1,0 +1,4 @@
+displayName = Fyrfys Mod
+author = FyrfyX8
+version = 0.2.1
+modReferences = GlowmaskHelpers
