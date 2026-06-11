@@ -121,23 +121,8 @@ namespace FyrfysMod.Content.NPCs
             }
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            if (source is EntitySource_SpawnNPC)
-            {
-                // A TownNPC is "unlocked" once it successfully spawns into the world.
-                TownNPCRespawnSystem.unlockedGravitraxerSpawn = true;
-            }
-        }
-
         public override bool CanTownNPCSpawn(int numTownNPCs)
         { // Requirements for the town NPC to spawn.
-            if (TownNPCRespawnSystem.unlockedGravitraxerSpawn)
-            {
-                // If Gravitraxer has spawned in this world before, a DustyGravitraxMarble is not required.
-                return true;
-            }
-
             foreach (var player in Main.ActivePlayers)
             {
                 // Player has to have any colour of DustyGravitraxMarble in their inventory for Gravitraxer to spawn for the first time.
