@@ -61,28 +61,32 @@ Items: {
 	}
 
 	SilverDirtyMarble: {
-		Tooltip: ""
-		DisplayName: Silver Dirty Marble
+		Tooltip: Someone might need this
+		DisplayName: Dirty Siver Marble
 	}
 
 	RedDirtyMarble: {
-		Tooltip: ""
-		DisplayName: Red Dirty Marble
+		Tooltip: Someone might need this
+		DisplayName: Dirty Red Marble
 	}
 
 	GreenDirtyMarble: {
-		Tooltip: ""
-		DisplayName: Green Dirty Marble
+		Tooltip: Someone might need this
+		DisplayName: Dirty Green Marble
 	}
 
 	GoldDirtyMarble: {
-		Tooltip: ""
-		DisplayName: Gold Dirty Marble
+		Tooltip:
+			'''
+			Someone might need this
+			'Ooh shiny'
+			'''
+		DisplayName: Dirty Gold Marble
 	}
 
 	BlueDirtyMarble: {
-		Tooltip: ""
-		DisplayName: Blue Dirty Marble
+		Tooltip: Someone might need this
+		DisplayName: Dirty Blue Marble
 	}
 
 	FeyaFlowerDress: {
@@ -135,18 +139,43 @@ NPCs: {
 			LoveNPC: I love {NPCName}.
 			DislikeBiome: I dislike {BiomeName}.
 			LoveBiome: I love {BiomeName}.
-			HateCrowded: I hate how crowded I am.
-			DislikeCrowded: I dislike how crowded I am.
-			LoveSpace: I love having so much space.
-			FarFromHome: I am too far from home.
-			NoHome: I hate not having a home.
-			Content: I am content.
+			HateCrowded: The amount of people here is stessing me out, i wanna build Gravitrax in peace.
+			DislikeCrowded: Where should i put all my stuff whith so many others living here?
+			LoveSpace: Thats great, enough spcae to build something big.
+			FarFromHome: I want to go back to my home, my Gravitrax is waiting.
+			NoHome: I want a home, all my Gravitrax is getting yellow.
+			Content: Gravitrax is Content.
 		}
 
 		DisplayName: Gravitraxer
 		DeathMessage: Mods.FyrfysMod.NPCs.Gravitraxer.DeathMessage
+		Census.SpawnCondition: Conditions unknown
 	}
 }
 
+Dialogue: {
+	Gravitraxer: {
+		Merchant: Can you ask {0} if he has Magnetic Cannons in stock?
+		StandardDialogue1: Hey, look at this track i have build.
+		StandardDialogue2: Sometimes i wonder why my Trampoline tricks wont work.
+		StandardDialogue3: I wonder what next years releases are gonna be, you too?
+		StandardDialogue4: Gravitrax is great, oh you dont know it? Lets change that.
+		CommonDialogue1: Oh hello {0}, wanna build Gravitrax with me?
+		CommonDialogue2: CommonDialogue
+		UncommonDialogue1: UncommonDialogue
+		RareDialogue1: Guess what my favourite Gravitrax element is... No, its not the Catapult, why would you even say this?
+		RestoreDialogueSilver1: Silver1
+		RestoreDialogueSilver2: Silver2
+		RestoreDialogueSilver3: Silver3
+		RestoreDialogueColoured1: Coloured1
+		RestoreDialogueColoured2: Coloured2
+		RestoreDialogueColoured3: Coloured3
+		RestoreDialogueGold1: Gold1
+		RestoreDialogueGold2: Gold2
+		RestoreDialogueGold3: Gold3
+	}
+}
+
+ChatButton.Gravitraxer.Button2: Restore
 Emotes.GravitraxerEmote.Command: Gravitraxeremote
 Projectiles.FeyaButterflyProjectile.DisplayName: Feya Butterfly Projectile
