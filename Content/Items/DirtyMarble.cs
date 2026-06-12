@@ -11,6 +11,22 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FyrfysMod.Content.Items;
+
+[ReinitializeDuringResizeArrays]
+public static class DirtyMarbleSet
+{
+    public const string DirtyMarbleSetKey = "DirtyMarble";
+
+    public static bool[] DirtyMarble = ItemID.Sets.Factory.CreateNamedSet(DirtyMarbleSetKey)
+        .Description("Items in this set make the Gravitraxer NPC Spawn and can ge returned to him")
+        .RegisterBoolSet(false, 
+        ModContent.ItemType<SilverDirtyMarble>(),
+        ModContent.ItemType<RedDirtyMarble>(),
+        ModContent.ItemType<GreenDirtyMarble>(),
+        ModContent.ItemType<BlueDirtyMarble>(),
+        ModContent.ItemType<GoldDirtyMarble>()
+        );
+}
 public abstract class DirtyMarble : ModItem
 {
     public override string Texture => "FyrfysMod/Content/Items/DirtyMarble";

@@ -2,7 +2,7 @@
 using FyrfysMod.Content.Items;
 using Microsoft.Xna.Framework;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -11,6 +11,7 @@ using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace FyrfysMod.Content.NPCs
 {
@@ -121,18 +122,104 @@ namespace FyrfysMod.Content.NPCs
             }
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (source is EntitySource_SpawnNPC)
+            {
+                // A TownNPC is "unlocked" once it successfully spawns into the world.
+                TownNPCRespawnSystem.unlockedGravitraxerSpawn = true;
+            }
+        }
+
         public override bool CanTownNPCSpawn(int numTownNPCs)
         { // Requirements for the town NPC to spawn.
+            if (TownNPCRespawnSystem.unlockedGravitraxerSpawn)
+            {
+                // If Gravitraxer has spawned in this world before, a DustyGravitraxMarble is not required.
+                return true;
+            }
+
             foreach (var player in Main.ActivePlayers)
             {
                 // Player has to have any colour of DustyGravitraxMarble in their inventory for Gravitraxer to spawn for the first time.
-                if (player.inventory.Any(item => item.type == ModContent.ItemType<DirtyMarble>()))
+                if (player.HasItem(DirtyMarbleSet.DirtyMarble))
                 {
                     return true;
                 }
             }
-
             return false;
+        }
+
+        public override ITownNPCProfile TownNPCProfile()
+        {
+            return NPCProfile;
+        }
+
+        public override List<string> SetNPCNameList()
+        {
+            return new List<string>() {
+                "Eric", // Eric M Gravitrax
+                "Elyas", // Gravibahn
+                "Fynn", // Fytrax
+                "Levi", // Levi K Gravitrax
+                "Jonas", // MegaTrax
+                "Fabian", // MegaTrax
+                "Bjarne",
+                "Luis", // Gravitrax Player
+                "Max", // BlueBlizzard
+                "Steffan", // Cooglebahn
+                "Emil", // Graviscraper
+                "Benni",
+                "Clemens",
+                "Lennox", // Lennox - Marble Runs
+                "Jona", // Gravitrax Masters
+                "Justus", // Gravitrax Masters
+            };
+        }
+
+        public override string GetChat()
+        {
+            WeightedRandom<string> chat = new WeightedRandom<string>();
+
+            int merchant = NPC.FindFirstNPC(NPCID.Merchant);
+            if (merchant >= 1 && Main.rand.NextBool(6))
+            {
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.Merchant", Main.npc[merchant].GivenName));
+            }
+
+        // Random things the Gravitraxer can tell the player
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue1"));
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue2"));
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue3"));
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue4"));
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.CommonDialogue1", Main.LocalPlayer.name), 2.0);
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RareDialogue1"), 0.1);
+
+            NumberOfTimesTalkedTo++;
+            if (NumberOfTimesTalkedTo >= 100)
+            {
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.TalkALot"));
+            }
+
+            string chosenChat = chat;
+
+            return chosenChat;
+        }
+
+
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = Language.GetTextValue("LegacyInterface.28");
+            button2 = Language.GetTextValue("Mods.FyrfysMod.ChatButton.Gravitraxer.Button2");
+        }
+
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+        {
+            if (!firstButton)
+            {
+                return;
+            }
+            shopName = ShopName;
         }
     }
 }
