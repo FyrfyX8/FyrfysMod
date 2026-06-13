@@ -212,7 +212,7 @@ namespace FyrfysMod.Content.NPCs
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RareDialogue1"), 0.1);
 
             NumberOfTimesTalkedTo++;
-            if (NumberOfTimesTalkedTo >= 3)
+            if (NumberOfTimesTalkedTo >= 100)
             {
                 chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.TalkALot", Main.rand.Next(GravitraxerChannels)));
             }
