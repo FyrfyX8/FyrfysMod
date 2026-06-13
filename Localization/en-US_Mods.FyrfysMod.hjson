@@ -132,47 +132,54 @@ Conditions: {
 NPCs: {
 	Gravitraxer: {
 		TownNPCMood: {
-			Princess_LovesNPC: I like {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
 			HateNPC: I hate {NPCName}.
 			LikeNPC: I like {NPCName}.
 			LoveNPC: I love {NPCName}.
-			DislikeBiome: I dislike {BiomeName}.
-			LoveBiome: I love {BiomeName}.
-			HateCrowded: The amount of people here is stessing me out, i wanna build Gravitrax in peace.
-			DislikeCrowded: Where should i put all my stuff whith so many others living here?
+			DislikeBiome: I dislike building in {BiomeName}.
+			LoveBiome: "{BiomeName}? I love living here."
+			DislikeCrowded: There are to many People here, i wanna build Gravitrax in peace.
+			HateCrowded: Where should i put all my stuff whith so many people living here?
 			LoveSpace: Thats great, enough spcae to build something big.
 			FarFromHome: I want to go back to my home, my Gravitrax is waiting.
 			NoHome: I want a home, all my Gravitrax is getting yellow.
 			Content: Gravitrax is Content.
+			Princess_LovesNPC: "{NPCName} knows what high quallity products are!"
+			LikeNPC_Princess: "{NPCName} showed me Gravitrax, i like that he does what he loves!"
 		}
 
 		DisplayName: Gravitraxer
-		DeathMessage: Mods.FyrfysMod.NPCs.Gravitraxer.DeathMessage
-		Census.SpawnCondition: Conditions unknown
+		DeathMessage: "{0} left for this years Builder Event..."
+		Census.SpawnCondition: Have any kind of {$Items.DirtyMarble.DisplayName} in your inventory
 	}
 }
 
 Dialogue: {
 	Gravitraxer: {
+		FirstChat1: Ah you are {0}? Nice to meet you! Im {1}. Whenever you find any Dirty Marbles, just bring them to me.
+		FirstChat2: Oh hello, youre {0}? Im {1}. If you happen to find a Dirty Marble, please return it to me.
+		FirstChat3: Hi, im {1}! And you must be {0}, right? Im searching for my Marbles, could you return them to me, if you happen to stumble upon one?
+		TalkALot: You should subscribe to {0}!
 		Merchant: Can you ask {0} if he has Magnetic Cannons in stock?
 		StandardDialogue1: Hey, look at this track i have build.
 		StandardDialogue2: Sometimes i wonder why my Trampoline tricks wont work.
 		StandardDialogue3: I wonder what next years releases are gonna be, you too?
 		StandardDialogue4: Gravitrax is great, oh you dont know it? Lets change that.
 		CommonDialogue1: Oh hello {0}, wanna build Gravitrax with me?
-		CommonDialogue2: CommonDialogue
-		UncommonDialogue1: UncommonDialogue
-		RareDialogue1: Guess what my favourite Gravitrax element is... No, its not the Catapult, why would you even say this?
-		RestoreDialogueSilver1: Silver1
-		RestoreDialogueSilver2: Silver2
-		RestoreDialogueSilver3: Silver3
-		RestoreDialogueColoured1: Coloured1
-		RestoreDialogueColoured2: Coloured2
-		RestoreDialogueColoured3: Coloured3
-		RestoreDialogueGold1: Gold1
-		RestoreDialogueGold2: Gold2
-		RestoreDialogueGold3: Gold3
+		CommonDialogue2: Ah {0}, youre here to build with me?
+		UncommonDialogue1: Guess what my favourite Gravitrax element is... No, its not the Catapult, why would you even say this?
+		RareDialogue1: Have you heard about the release for next year? its... oh wait i shouldn't talk about that!
+		RestoreDialogueNothing1: You dont have any Dirty Marbles, return to me, when you found some!
+		RestoreDialogueNothing2: Ah great you found a... Wait you dont have any Dirty Marbles, come back if you got some.
+		RestoreDialogueNothing3: Oh how you can find Dirty Marbles? just walk around, maby you stumble upon one!
+		RestoreDialogueSilver1: Ah, great a {$Items.SilverDirtyMarble.DisplayName}! Here take some Coins for finding it!
+		RestoreDialogueSilver2: What you got there? A {$Items.SilverDirtyMarble.DisplayName}? Here some Coins for youre help!
+		RestoreDialogueSilver3: You got a {$Items.SilverDirtyMarble.DisplayName}? I'll take that and you get Coins!
+		RestoreDialogueColored1: Oh, a {0}, Great! Take these Coins! Now i have one more Marble to use in my tracks.
+		RestoreDialogueColored2: Nice, you found a {0}! I'll give you these Coins for that!
+		RestoreDialogueColored3: Grat Job! you found a {0}! Here are some Coins for your find!
+		RestoreDialogueGold1: What!? A {$Items.GoldDirtyMarble.DisplayName}? I give you this in exchange for that!
+		RestoreDialogueGold2: Insane! You found a rare {$Items.GoldDirtyMarble.DisplayName}! Here, take this. That should be of same Value.
+		RestoreDialogueGold3: Is that a {$Items.GoldDirtyMarble.DisplayName}? I'll give you one of my special wares for that!
 	}
 }
 

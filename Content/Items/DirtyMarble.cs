@@ -17,6 +17,8 @@ public static class DirtyMarbleSet
 {
     public const string DirtyMarbleSetKey = "DirtyMarble";
 
+    public const string ColoredDirtyMarbleSetKey = "ColoredDirtyMarble";
+
     public static bool[] DirtyMarble = ItemID.Sets.Factory.CreateNamedSet(DirtyMarbleSetKey)
         .Description("Items in this set make the Gravitraxer NPC Spawn and can ge returned to him")
         .RegisterBoolSet(false, 
@@ -25,6 +27,14 @@ public static class DirtyMarbleSet
         ModContent.ItemType<GreenDirtyMarble>(),
         ModContent.ItemType<BlueDirtyMarble>(),
         ModContent.ItemType<GoldDirtyMarble>()
+        );
+
+    public static bool[] ColoredDirtyMarble = ItemID.Sets.Factory.CreateNamedSet(ColoredDirtyMarbleSetKey)
+        .Description("Items in this set give the colored rewards when returned to the Gravitraxer NPC")
+        .RegisterBoolSet(false,
+        ModContent.ItemType<RedDirtyMarble>(),
+        ModContent.ItemType<GreenDirtyMarble>(),
+        ModContent.ItemType<BlueDirtyMarble>()
         );
 }
 public abstract class DirtyMarble : ModItem
@@ -53,7 +63,7 @@ public abstract class DirtyMarble : ModItem
     {
         Item.width = 12;
         Item.height = 12;
-        Item.maxStack = Item.CommonMaxStack;
+        Item.maxStack = 1;
         Item.value = Item.sellPrice(copper: 50);
         Item.rare = ItemRarityID.Green;
     }

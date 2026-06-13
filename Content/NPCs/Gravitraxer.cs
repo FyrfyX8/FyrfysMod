@@ -11,6 +11,7 @@ using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.Utilities;
 
 namespace FyrfysMod.Content.NPCs
@@ -21,7 +22,21 @@ namespace FyrfysMod.Content.NPCs
         public const string ShopName = "Shop";
         public int NumberOfTimesTalkedTo = 0;
 
-        private static int ShimmerHeadIndex;
+        public List<string> GravitraxerChannels = new List<string>() {
+                "Eric M Gravitrax",
+                "Gravibahn",
+                "Fytrax",
+                "Levi K Gravitrax",
+                "MegaTrax",
+                "Gravitrax Player",
+                "BlueBlizzard",
+                "Cooglebahn",
+                "Graviscraper",
+                "Lennox - Marble Runs",
+                "Gravitrax Masters"
+            };
+
+    private static int ShimmerHeadIndex;
         private static Profiles.StackedNPCProfile NPCProfile;
 
         public static LocalizedText UpgradedText {  get; private set; }
@@ -63,6 +78,7 @@ namespace FyrfysMod.Content.NPCs
                 .SetNPCAffection(NPCID.Merchant, AffectionLevel.Love) // Gravitraxer loves living near the Merchant.
                 .SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Love) // Gravitraxer loves living near the Goblin Tinkerer.
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like) // Gravitraxer likes living near the Guide.
+                .SetNPCAffection(NPCID.BestiaryGirl, AffectionLevel.Like) // Gravitraxer likes living near the Zoologist.
                 .SetNPCAffection(NPCID.Demolitionist, AffectionLevel.Hate) // Gravitraxer hates living near the Demolitionist.
                 .SetNPCAffection(NPCID.Angler, AffectionLevel.Hate); // Gravitraxer hates living near the Angler.
             ;
@@ -196,12 +212,21 @@ namespace FyrfysMod.Content.NPCs
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RareDialogue1"), 0.1);
 
             NumberOfTimesTalkedTo++;
-            if (NumberOfTimesTalkedTo >= 100)
+            if (NumberOfTimesTalkedTo >= 3)
             {
-                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.TalkALot"));
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.TalkALot", Main.rand.Next(GravitraxerChannels)));
+            }
+
+            if (NumberOfTimesTalkedTo == 1)
+            {
+                chat.Clear();
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.FirstChat1", Main.LocalPlayer.name, NPC.FullName));
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.FirstChat2", Main.LocalPlayer.name, NPC.FullName));
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.FirstChat3", Main.LocalPlayer.name, NPC.FullName));
             }
 
             string chosenChat = chat;
+
 
             return chosenChat;
         }
@@ -217,9 +242,76 @@ namespace FyrfysMod.Content.NPCs
         {
             if (!firstButton)
             {
+                Player player = Main.LocalPlayer;
+
+                WeightedRandom<string> chat = new WeightedRandom<string>();
+
+                // get first found DirtyMarble
+                if (player.HasItem(DirtyMarbleSet.DirtyMarble))
+                {
+                    int dirtyMarbleItemIndex = player.FindItem(DirtyMarbleSet.DirtyMarble);
+                    var entitySource = NPC.GetSource_GiftOrReward();
+                    int rewardTotalCopper = 0;
+                    float rewardMultiplyer = 1f;
+
+                    if (player.inventory[dirtyMarbleItemIndex].type == ModContent.ItemType<SilverDirtyMarble>())
+                    {
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueSilver1"));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueSilver2"));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueSilver3"));
+
+                        rewardTotalCopper = (int)(Main.rand.Next(Item.buyPrice(silver: 5), Item.buyPrice(silver: 50)) * rewardMultiplyer);
+                    }
+
+                    if (DirtyMarbleSet.ColoredDirtyMarble[player.inventory[dirtyMarbleItemIndex].type])
+                    {
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueColored1", player.inventory[dirtyMarbleItemIndex].Name));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueColored2", player.inventory[dirtyMarbleItemIndex].Name));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueColored3", player.inventory[dirtyMarbleItemIndex].Name));
+
+                        rewardTotalCopper = (int)(Main.rand.Next(Item.buyPrice(gold: 1), Item.buyPrice(gold: 10)) * rewardMultiplyer);
+                    }
+
+                    player.inventory[dirtyMarbleItemIndex].TurnToAir();
+
+                    if (chat.elements.Count > 0) Main.npcChatText = chat;
+
+                    if (rewardTotalCopper > 0) 
+                    {
+                        int platinum = rewardTotalCopper / Item.buyPrice(platinum: 1);
+                        int gold = (rewardTotalCopper / Item.buyPrice(gold: 1)) % 100;
+                        int silver = (rewardTotalCopper / Item.buyPrice(silver: 1)) % 100;
+                        int copper = rewardTotalCopper % 100;
+
+                        if (platinum > 0) player.QuickSpawnItem(entitySource, ItemID.PlatinumCoin, platinum);
+                        if (gold > 0) player.QuickSpawnItem(entitySource, ItemID.GoldCoin, gold);
+                        if (silver > 0) player.QuickSpawnItem(entitySource, ItemID.SilverCoin, silver);
+                        if (copper > 0) player.QuickSpawnItem(entitySource, ItemID.CopperCoin, copper);
+                    }
+
+                    return;
+                }
+
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueNothing1"));
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueNothing2"));
+                chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueNothing3"));
+
+
+                Main.npcChatText = chat;
+
                 return;
             }
             shopName = ShopName;
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            NumberOfTimesTalkedTo = tag.GetInt("numberOfTimesTalkedTo");
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag["numberOfTimesTalkedTo"] = NumberOfTimesTalkedTo;
         }
     }
 }
