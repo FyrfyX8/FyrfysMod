@@ -209,6 +209,8 @@ namespace FyrfysMod.Content.NPCs
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue3"));
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.StandardDialogue4"));
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.CommonDialogue1", Main.LocalPlayer.name), 2.0);
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.CommonDialogue2", Main.LocalPlayer.name), 2.0);
+            chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.UncommonDialogue1"), 0.1);
             chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RareDialogue1"), 0.1);
 
             NumberOfTimesTalkedTo++;
@@ -252,8 +254,11 @@ namespace FyrfysMod.Content.NPCs
                     int dirtyMarbleItemIndex = player.FindItem(DirtyMarbleSet.DirtyMarble);
                     var entitySource = NPC.GetSource_GiftOrReward();
                     int rewardTotalCopper = 0;
-                    float rewardMultiplyer = 1f;
+                    WeightedRandom<Item> rewardItem = new WeightedRandom<Item>();
+                    double rewardMultiplyer =  2 - Main.ShopHelper.GetShoppingSettings(player, this.NPC).PriceAdjustment;
+                    Console.WriteLine(rewardMultiplyer);
 
+                    // Player has SilverDirtyMarble -> Give Coin reward between 5 and 50 silver
                     if (player.inventory[dirtyMarbleItemIndex].type == ModContent.ItemType<SilverDirtyMarble>())
                     {
                         chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueSilver1"));
@@ -263,6 +268,7 @@ namespace FyrfysMod.Content.NPCs
                         rewardTotalCopper = (int)(Main.rand.Next(Item.buyPrice(silver: 5), Item.buyPrice(silver: 50)) * rewardMultiplyer);
                     }
 
+                    // Player has any ColouredDirtyMarble -> Gives Coin reward between 1 and 10 gold
                     if (DirtyMarbleSet.ColoredDirtyMarble[player.inventory[dirtyMarbleItemIndex].type])
                     {
                         chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueColored1", player.inventory[dirtyMarbleItemIndex].Name));
@@ -272,9 +278,26 @@ namespace FyrfysMod.Content.NPCs
                         rewardTotalCopper = (int)(Main.rand.Next(Item.buyPrice(gold: 1), Item.buyPrice(gold: 10)) * rewardMultiplyer);
                     }
 
-                    player.inventory[dirtyMarbleItemIndex].TurnToAir();
+                    // Player has a GoldDirtyMarble -> Gives the Player a special reward
+                    if (player.inventory[dirtyMarbleItemIndex].type == ModContent.ItemType<GoldDirtyMarble>())
+                    {
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueGold1"));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueGold2"));
+                        chat.Add(Language.GetTextValue("Mods.FyrfysMod.Dialogue.Gravitraxer.RestoreDialogueGold3"));
+
+
+
+                        // WIP Item rewards use player.RollLuck(100) * 0.01f);
+                    }
+
+                    if (player.inventory[dirtyMarbleItemIndex].stack > 1) player.inventory[dirtyMarbleItemIndex].stack -= 1;
+                    else player.inventory[dirtyMarbleItemIndex].TurnToAir();
 
                     if (chat.elements.Count > 0) Main.npcChatText = chat;
+
+                    Item item = new Item();
+
+                    if (rewardItem.elements.Count > 0) item = rewardItem;
 
                     if (rewardTotalCopper > 0) 
                     {
@@ -288,6 +311,8 @@ namespace FyrfysMod.Content.NPCs
                         if (silver > 0) player.QuickSpawnItem(entitySource, ItemID.SilverCoin, silver);
                         if (copper > 0) player.QuickSpawnItem(entitySource, ItemID.CopperCoin, copper);
                     }
+
+                    // if (!item.IsAir)
 
                     return;
                 }
@@ -303,6 +328,17 @@ namespace FyrfysMod.Content.NPCs
             }
             shopName = ShopName;
         }
+
+        public override void AddShops()
+        {
+            var npcShop = new NPCShop(Type, ShopName);
+
+            // WIP Shop
+
+            npcShop.Register();
+        }
+
+        public override bool CanGoToStatue(bool toKingStatue) => true;
 
         public override void LoadData(TagCompound tag)
         {

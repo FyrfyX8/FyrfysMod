@@ -43,8 +43,6 @@ public abstract class DirtyMarble : ModItem
 
     public virtual Color TintColor => Color.White;
 
-    public virtual int MarbleRarity => 0;
-
     private static Asset<Texture2D> backTexture;
     private static Asset<Texture2D> frontTexture;
 
@@ -63,8 +61,8 @@ public abstract class DirtyMarble : ModItem
     {
         Item.width = 12;
         Item.height = 12;
-        Item.maxStack = 1;
-        Item.value = Item.sellPrice(copper: 50);
+        Item.maxStack = Item.CommonMaxStack;
+        Item.value = 0;
         Item.rare = ItemRarityID.Green;
     }
 
@@ -93,23 +91,19 @@ public class SilverDirtyMarble : DirtyMarble
 public class RedDirtyMarble : DirtyMarble
 {
     public override Color TintColor => GravitraxMarbles.Red;
-    public override int MarbleRarity => 1;
 }
 
 public class GreenDirtyMarble : DirtyMarble
 {
     public override Color TintColor => GravitraxMarbles.Green;
-    public override int MarbleRarity => 1;
 }
 
 public class BlueDirtyMarble : DirtyMarble
 {
     public override Color TintColor => GravitraxMarbles.Blue;
-    public override int MarbleRarity => 1;
 }
 
 public class GoldDirtyMarble : DirtyMarble
 {
     public override Color TintColor => GravitraxMarbles.Gold;
-    public override int MarbleRarity => 2;
 }
