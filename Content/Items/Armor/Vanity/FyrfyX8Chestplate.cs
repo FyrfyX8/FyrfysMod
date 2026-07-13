@@ -19,8 +19,8 @@ namespace FyrfysMod.Content.Items.Armor.Vanity
 
         public override void SetDefaults()
         {
-            Item.width = 18;
-            Item.height = 14;
+            Item.width = 26;
+            Item.height = 24;
             Item.rare = ItemRarityID.Cyan;
             Item.vanity = true;
             Item.value = Item.sellPrice(gold: 5);
