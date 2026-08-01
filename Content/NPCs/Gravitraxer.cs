@@ -171,7 +171,7 @@ namespace FyrfysMod.Content.NPCs
             return NPCProfile;
         }
 
-        public override List<string> SetNPCNameList()
+        public override List<string> SetNPCNameList()/* tModPorter Suggestion: Return a list of names */
         {
             return new List<string>() {
                 "Eric", // Eric M Gravitrax

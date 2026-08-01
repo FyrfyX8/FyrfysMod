@@ -2,6 +2,10 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace FyrfysMod.Content.Items.Accessories
 {
@@ -27,13 +31,6 @@ namespace FyrfysMod.Content.Items.Accessories
 
             int equipSlot = EquipLoader.GetEquipSlot(Mod, "FyrfyX8Tail", EquipType.Back);
             ArmorIDs.Back.Sets.DrawInTailLayer[equipSlot] = true;
-        }
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            if (hideVisual) return;
-
-            
         }
     }
 }
